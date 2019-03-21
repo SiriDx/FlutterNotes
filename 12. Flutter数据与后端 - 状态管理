@@ -1,0 +1,88 @@
+## State management
+
+### Introduction
+
+有时候, 需要在不同页面共享app的状态. 有许多方式.
+
+### Think declaratively
+
+Flutter和原生开发不大一样. 如, Flutter中可以重建部分UI, 而不是使用修改的方式. Flutter可以很快地做到这点.
+
+Flutter的陈述的方式(declarative). 意味着, Flutter构建用户操作页面来反映当前app的状态.
+
+当app的状态改变(如, 用户打开设置页面的一个开关), 你改变这个状态, 触发用户页面的重新绘制. 没有必要改变UI本身(像是widget.setText), 你可以改变状态, UI会重新构建.
+
+### Ephemeral vs app state
+
+短暂状态与app状态的区别.
+
+#### Ephemeral state
+
+Ephemeral state(有时候成为UI状态或本地状态), 可以包含在单一的widget中.
+
+如:
+
+- PageView的当前页
+- 复杂动画的当前状态
+- BottomNavigationBar当前选择的tab
+
+树上的其他widget很少需要方位这类型的状态. 不需要进行解析, 也不会有很复杂的变化.
+
+换句话说, 这些类型的状态不需要使用状态管理技术(ScopedModel, Redux, etc.). 你只需要使用StatefulWidget.
+
+下面例子中, \_index是一个短暂(Ephemeral)的状态
+
+
+```d
+class MyHomepage extends StatefulWidget {
+  @override
+  _MyHomepageState createState() => _MyHomepageState();
+}
+
+class _MyHomepageState extends State<MyHomepage> {
+  int _index = 0;
+
+  @override
+  Widget build(BuildContext context) {
+    return BottomNavigationBar(
+      currentIndex: _index,
+      onTap: (newIndex) {
+        setState(() {
+          _index = newIndex;
+        });
+      },
+      // ... items ...
+    );
+  }
+}
+```
+
+在StatefulWidget类内部中使用setState()方法. app的其他地方不需要访问\_index. 该变量只改变MyHomepage widget. 如果用户关闭重启app, 也不需要在意\ _index重置为0.
+
+#### App state
+
+app状态(也叫共享状态), 非短暂状态, 希望可以在app多个地方进行共享, 用户单元中的共享.
+
+如:
+
+- 用户偏好设置
+- 登录信息
+- 公共网络通知
+- 电商项目中的购物车
+- 新闻app中文章的已/未读状态
+
+#### There is no clear-cut rule
+
+当然, 你可以用State和setState()来管理app里面的所有状态.
+
+也可以使用其他方式. 如, 你可以将底部导航条选中的tab, 设定为不是一个短暂的状态. 你需要在类的外部改变它. 这种情况下\ _index是一个app状态.
+
+没有明确的规则来区分特定的变量是ephemeral状态还是app状态. 有时候, 你需要将其中一个重新构造为另一个. 如, 一开始你定义了某个ephemeral state, 随着app的迭代, 你需要将它改为app state.
+
+![image](https://flutter.dev/assets/development/data-and-backend/state-mgmt/ephemeral-vs-app-state-3137024aa509b4df5d20ed7ed30fb8a0f7cff54ebc8ab0d6e39794bced87e27c.png)
+
+### 简单的app状态管理 Simple app state management
+
+
+
+### Options
