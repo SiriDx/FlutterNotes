@@ -1,0 +1,38 @@
+## 辅助 Accessibility
+
+开发app更加友好, 尽可能多的人可以使用到该app, 包括那些残疾, 如盲人或者运动障碍的人.
+
+Flutter提供三个组件来进行复制:
+
+- `Large fonts`: 将text widget渲染为用户指定的尺寸
+- `Screen readers`: 语音反馈UI内容
+- `Sufficient contrast`: 渲染充分对比色的widgets
+
+### Inspecting Accessibility support
+
+- For Android:
+
+	1. 安装`Accessibility Scanner`
+	2. 通过`Android Settings > Accessibility > Accessibility Scanner > On`开启 Accessibility Scanner 
+	3. Navigate to the Accessibility Scanner ‘checkbox’ icon button to initiate a scan
+
+- For iOS:
+
+1. 在Xcode中打开Flutter app中的iOS文件夹
+2. 选择一个模拟器作为目标, 点击`Run`按钮
+3. 在Xcode中, 选择`Xcode > Open Developer Tools > Accessibility Inspector`
+4. 在`Accessibility Inspector`中, 选择`Inspection > Enable Point to Inspect`, and then select the various user interface elements in running Flutter app to inspect their accessibility attributes
+5. Accessibility Inspector, 在工具条中选择`Audit`, 然后选择`Run Audio`, 来获取潜在问题报告
+
+### Large fonts
+
+#### Tips for developers
+#### Example
+
+### Screen readers
+#### Tips for developers
+
+### Sufficient contrast
+#### Tips for developers
+
+...
