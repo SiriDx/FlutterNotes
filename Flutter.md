@@ -13,7 +13,20 @@
 构造
 
 ```d
-Text(String data, {Key key, TextStyle style, StrutStyle strutStyle, TextAlign textAlign, TextDirection textDirection, Locale locale, bool softWrap, TextOverflow overflow, double textScaleFactor, int maxLines, String semanticsLabel}) → Text
+const Text(
+	String data, {
+	Key key,
+	TextStyle style,
+	StrutStyle strutStyle,
+	TextAlign textAlign,
+	TextDirection textDirection,
+	Locale locale,
+	bool softWrap,
+	TextOverflow overflow,
+	double textScaleFactor,
+	int maxLines,
+	String semanticsLabel
+})
 ```
 
 属性
@@ -46,7 +59,21 @@ style: 字体大小, 颜色, 装饰(下划线...)
 
 
 ```d
-Container({Key key, AlignmentGeometry alignment, EdgeInsetsGeometry padding, Color color, Decoration decoration, Decoration foregroundDecoration, double width, double height, BoxConstraints constraints, EdgeInsetsGeometry margin, Matrix4 transform, Widget child })
+
+Container({
+	Key key,
+	AlignmentGeometry alignment,
+	EdgeInsetsGeometry padding,
+	Color color,
+	Decoration decoration,
+	Decoration foregroundDecoration,
+	double width,
+	double height,
+	BoxConstraints constraints,
+	EdgeInsetsGeometry margin,
+	Matrix4 transform,
+	Widget child
+})
 ```
 
 属性
