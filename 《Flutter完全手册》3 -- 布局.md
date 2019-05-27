@@ -1043,3 +1043,179 @@ class StackWidget extends StatelessWidget {
 ```
 
 ![image](https://user-gold-cdn.xitu.io/2019/4/17/16a2a1ab07cb564b?imageslim)
+
+### 容器类 Widget
+
+容器类Widget与布局类Widget区别
+
+```
+布局类Widget 的子Widget 一般都是数组
+而容器类Widget 的子Widget 一般只有一个
+
+布局类Widget 是按照一定的排列方式对其 子Widget 进行排列
+容器类Widget 用于嵌套其他 Widget，对 Widget 添加一些修饰
+（补白或背景色等）、变换(旋转或剪裁等)、或限制(大小等)
+```
+> 在前面使用 UI Widget 的时候，
+想必你已经发现，大部分 UI Widget 都不能指定宽高、设置内边距和外边距，
+这时候就需要使用 容器类Widget 了
+
+#### Padding
+
+**Padding 的构造函数及参数说明**
+
+```d
+class Padding extends SingleChildRenderObjectWidget {
+  const Padding({
+    Key key,
+    // EdgeInsetsGeometry	容器内边距
+    @required this.padding,
+    // Widget	容器里显示的 Widget
+    Widget child,
+  }) : assert(padding != null),
+       super(key: key, child: child);
+    ...
+}
+```
+
+*padding：容器内边距*
+
+```d
+padding 的类型是 EdgeInsetsGeometry，
+EdgeInsetsGeometry 是抽象类，我们一般使用 EdgeInsets
+
+EdgeInsets.all(double value)	上、下、左、右 边距都一样
+EdgeInsets.only({this.left = 0.0,this.top = 0.0,this.right = 0.0,this.bottom = 0.0})	可以单独指定一个的边距
+EdgeInsets.symmetric({double vertical = 0.0,double horizontal = 0.0,})	vertical 的值是上、下边距， horizontal 是左右边距的值
+```
+
+
+**使用方法**
+
+```d
+Padding(
+  padding: EdgeInsets.all(100),
+  child: Text('Hello Flutter'),
+)
+```
+
+#### Container
+
+Container 是一个拥有绘制、定位、调整大小的 Widget。
+
+**Container 的构造函数及参数说明**
+
+```d
+class Container extends StatelessWidget {
+  Container({
+    Key key,
+    // AlignmentGeometry	容器内 child 的对齐方式
+    this.alignment,
+    // EdgeInsetsGeometry	容器内边距
+    this.padding,
+    // 	Color	容器的背景色
+    Color color,
+    // Decoration	容器的背景装饰
+    Decoration decoration,
+    // Decoration	容器的前景装饰
+    this.foregroundDecoration,
+    double width,
+    double height,
+    // BoxConstraints	容器的大小限制
+    BoxConstraints constraints,
+    // EdgeInsetsGeometry	容器外边距
+    this.margin,
+    // Matrix4	容器的变化
+    this.transform,
+    //	Widget	容器里显示的 Widget
+    this.child,
+  }) : 
+  ...
+}
+```
+
+**使用方法**
+
+```d
+Container(
+  margin: EdgeInsets.only(top: 50.0, left: 120.0), //容器外补白
+  constraints:
+      BoxConstraints.tightFor(width: 200.0, height: 150.0), //卡片大小
+  decoration: BoxDecoration(
+      //背景装饰
+      gradient: RadialGradient(
+          //背景径向渐变
+          colors: [Colors.green, Colors.blue],
+          center: Alignment.topLeft,
+          radius: .98),
+      boxShadow: [
+        //卡片阴影
+        BoxShadow(
+            color: Colors.black54,
+            offset: Offset(2.0, 2.0),
+            blurRadius: 4.0)
+      ])
+```
+
+#### Align
+
+Align 可以控制其 子Widget 的对齐方式，并可以根据 子Widget 的大小自动调整自己的大小。
+
+**Align 的构造函数及参数说明**
+
+```d
+class Align extends SingleChildRenderObjectWidget {
+  const Align({
+    Key key,
+    // Alignment	容器内 child 的对齐方式
+    this.alignment = Alignment.center,
+    // 宽度因子。如果没有设置，则 Align 的宽度就是match_parent；
+    // 如果为 非null，则将容器的宽度设置为 子Widget的宽度 乘以此宽度因子
+	// 值必须>=0
+    this.widthFactor,
+    this.heightFactor,
+    Widget child
+  }) : assert(alignment != null),
+       assert(widthFactor == null || widthFactor >= 0.0),
+       assert(heightFactor == null || heightFactor >= 0.0),
+       super(key: key, child: child);
+    ...
+}
+```
+
+**使用方法**
+
+```d
+Align(
+  alignment: Alignment.topRight,
+  child: Text(
+    'Hello Flutter',
+    style: TextStyle(color: Colors.red, fontSize: 50),
+  ),
+ )
+```
+
+#### Center
+
+Center 可以将其 子Widget 居中显示在自身内部。Center 继承自 Align，其实就是 alignment 为 Alignment.center 的 Align。
+
+**Center 的构造函数及参数说明**
+
+```d
+class Center extends Align {
+  /// Creates a widget that centers its child.
+  const Center({ Key key, double widthFactor, double heightFactor, Widget child })
+    : super(key: key, widthFactor: widthFactor, heightFactor: heightFactor, child: child);
+}
+```
+
+**使用方法**
+
+```d
+Center(
+  child: Text(
+    'Hello Flutter',
+    style: TextStyle(color: Colors.red, fontSize: 50),
+  ),
+)    
+```
