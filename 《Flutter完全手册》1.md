@@ -995,6 +995,117 @@ StatelessWidget 使用注意事项
 因为 StatelessWidget 只会渲染一次。
 ```
 
+#### MaterialApp 与 Scaffold
+
+- MaterialApp
+
+```
+MaterialApp 表示当前应用的风格是 Material Design。
+为了使用其他已经封装好的 Material Design 风格的 Widget，就必须使用 MaterialApp。
+因此 MaterialApp 经常是 Flutter Widget 树里的第一个元素，就是 Root Widget。
+```
+
+- Scaffold
+
+```
+Scaffold 实现了 Material Design 的基本布局结构，
+例如 AppBar、Drawer、SnackBar 等，
+所以为了使用这些布局，也必须要使用 Scaffold，
+
+所以一个 Flutter App 的 基本结构就是：
+Root Widget 是 MaterialApp ，
+然后 MaterialApp 的 子Widget 就是 Scaffold，
+然后我们在 Scaffolfd 的 子Widget 里写UI。
+```
+
+> MaterialApp 大部分情况下要作为 Flutter 的 根Widget，并且 MaterialApp 和 Scaffold 经常是一起搭配使用的。
+
+**MaterialApp 使用**
+
+```d
+MaterialApp(
+	/*
+	String 类型
+	出现在 Android 的任务管理器上
+	或者是 iOS 程序切换管理器中
+	*/
+    title: 'Flutter Demo',
+    // Android 中程序切换中应用图标背景的颜色.
+    color: Colors.red,
+}
+```
+
+*theme*
+
+```
+ThemeData 类型
+设置 Flutter App 的主题，比如颜色、字体等。
+```
+
+*home*
+
+```d
+进入程序后显示的第一个页面，必须是 Scaffold。
+
+MaterialApp(
+    home: Scaffold(
+       ...
+    )
+)    
+```
+
+**Scaffold 使用**
+
+```
+Scaffold 是实现 Material Design 基本视觉布局结构的 Widget,
+它被设计为 MaterialApp 的顶级容器，会自动填满屏幕，
+而且会自动适配不同的屏幕，例如刘海屏等。
+```
+
+*appBar*
+
+```
+AppBar 类型
+就是顶部的标题栏，不设置的话就不会显示。
+```
+
+*backgroundColor*
+
+```
+Color类型
+背景颜色
+```
+
+*body*
+
+```
+Widget 类型
+
+就是 Scaffold 要显示的主要内容。
+body 是 Widget 类型，是 Scaffold 的最重要的属性，
+也是实际要显示的 UI。
+```
+
+**Flutter APP 的 Widget 树**
+
+大部分情况下要用 Material APP 和 Scaffold，所以 Flutter APP 的 Widget 树经常是这样子的：
+
+![image](https://user-gold-cdn.xitu.io/2019/3/16/16985f2580c6a945?imageslim)
+
+```d
+Widget build(BuildContext context) {
+    return MaterialApp(
+        title: 'Flutter Demo',
+        theme: ThemeData(
+          primarySwatch: Colors.blue,
+        ),
+        home: Scaffold(
+          body: ...
+        )
+    );
+}
+```
+
 #### Flutter 写 UI 的方式 —— 声明式
 
 ```
